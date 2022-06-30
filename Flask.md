@@ -12,7 +12,8 @@ Flask는 python 기반의 web framework에서 가벼운 축에 속한다.
 flask는 mvc 패턴을 따른다. model, view, controller
 
 ## Flask 설치
-<hr/>
+<hr/>  
+
 ``` bash
 #디렉토리 생성
 mkdir flask-tutorial
@@ -41,6 +42,73 @@ if __name__ == "__main__":
 # debug 모드로 실행, 모든 IP 에서 접근 허용, 5000 포트로 사용하는 것을 의미
 ```
 
+## Routing
+<hr/>  
+
+flask의 route()는 python함수를 web server의 URI에 매핑 시킬 수 있습니다.  
+우리는 app.py를 다음과 같이 수정해봅시다.  
+
+``` bash
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
+
+@app.route("/helloai")
+def hello_AI():
+    return "<p>Hello, AI!</p>"
+
+if __name__ == "__main__":
+	app.run(debug=True, host='0.0.0.0', port=5000)
+```
+app.py를 실행하고 127.0.0.1:5000 으로 접속하면 Hello, World! 라는 문자가, 127.0.0.1:5000/helloai/ 로 접속하면 Hello, AI! 라는 문자가 브라우저에 보이는 것을 확인할 수 있습니다.
+
+## Post Method
+<hr/>  
+route()를 통해서 URI 뿐만이 아니라 Http method도 저장할 수 있습니다.
+다음과 같이 app.py를 수정해봅시다.   
+
+``` bash
+from flask import Flask
+import json
+
+app = Flask(__name__)
+
+@app.route("/predict", methods=["POST", "PUT"])
+def inference():
+    return json.dumps({'hello': 'world'}), 200 # http status code 를 200 으로 반환하는 것을 의미합니다.
+
+if __name__ == "__main__":
+	app.run(debug=True, host='0.0.0.0', port=5000)
+```
+
+app.py를 실행하여 서버를 띄우고 다른 창에서 curl을 수행하여 http 응답을 확인합니다.  
+``` bash
+curl -X POST http://127.0.0.1:5000/predict
+# {"hello": "world"}
+
+curl -X PUT http://127.0.0.1:5000/predict
+# {"hello": "world"}
+
+curl -X GET http://127.0.0.1:5000/predict
+# <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+# <title>405 Method Not Allowed</title>
+# <h1>Method Not Allowed</h1>
+# <p>The method is not allowed for the requested URL.</p>
+```
+post와 put만 허용했기 때문에 get은 405 error가 발생할 것입니다.
+
+## ETC
+<hr/>  
+
+- 이외에도 Flask 는 Web Application 을 구동하기 위한 다양한 기능들을 내장하고 있습니다.  
+
+- 하지만 저희는 Flask 의 모든 기능을 살펴보는 것이 목적이 아니라, 여러분의 머신러닝 모델을 API 서비스로 제공(서빙)할 때, Flask 를 사용하는 방법을 알아보는 것이 목적입니다.  
+
+- 다음 시간에는 Flask 를 활용하여 간단한 머신러닝 모델을 서빙해보겠습니다.
 
 ## Flask 에서 사용할 모델 학습 및 저장
 <hr/>
