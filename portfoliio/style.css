@@ -1,0 +1,63 @@
+/* 폰트 설정*/
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+    list-style: none;
+    text-decoration: none;
+    border-collapse: collapse;
+    margin:0px;
+    padding:0px;
+    color:#000000;
+
+}
+
+.cond1{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18pt;
+    margin-bottom: 20px;
+}
+
+.cond2{
+    font-family: 'Jua', sans-serif;
+    font-size: 22pt;
+}
+/*---------*/
+/*백그라운드 이미지 삽입*/
+.intro_bg{
+    background-image:url("SKTFLYAI.png");
+    width:1160px;
+    height:303px;
+}
+
+.portfolio{
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 120px;
+    width: 1200px;
+}
+
+.main_text{
+    display:flex;
+    width:1200px;
+    height:600px;
+    background: white;
+    margin : auto;
+}
+
+
+.main_text > li{
+    flex: 1;
+    margin-top: 30px;
+    background: white;
+    height: 600px;
+
+}
+
+.icons > li:not(:last-child){
+    margin-right: 20px;
+}
+
+.main_text > li > .photo > img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 50px;
+}
